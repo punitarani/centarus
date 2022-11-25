@@ -9,6 +9,10 @@ import (
 )
 
 // Load loads variables from *.env file into the environment.
+//
+// Key-value pairs are of the form: KEY=value
+// Comment lines start with '#'
+// Empty lines are ignored
 func Load(envFile string) error {
 	// Check if file exists
 	if _, err := os.Stat(envFile); err != nil {
