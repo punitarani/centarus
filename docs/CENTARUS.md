@@ -35,3 +35,9 @@
 - **Lack of authority**: No central guidance to drive the development of the software.
 - **Fragmentation**: Forks and clones can be developed and maintained by different communities.
 - **Legal issues**: Difficult to enforce the license terms and protect the intellectual property.
+
+### Current state of OSS
+
+- **Growing**: It is growing rapidly and is becoming widely adopted at a lot of large tech companies.
+- **Adoption**: It is being adopted throughout a variety of industries from Cloud Computing to IoT.
+- **Dominance**: It is becoming the dominant software development model over proprietary software.
