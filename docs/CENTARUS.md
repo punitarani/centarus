@@ -41,3 +41,23 @@
 - **Growing**: It is growing rapidly and is becoming widely adopted at a lot of large tech companies.
 - **Adoption**: It is being adopted throughout a variety of industries from Cloud Computing to IoT.
 - **Dominance**: It is becoming the dominant software development model over proprietary software.
+
+### Problems with the current state of OSS
+
+- **Lack of Coordination and Collaboration** among different OSS projects.
+  - Results in fragmentation and duplication of effort.
+- **Lack of Funding and Resources** to grow and maintain OSS projects.
+  - Prevents a lot of OSS projects from reaching their full potential.
+- **Lack of Business Model** to sustain OSS projects in the long term.
+  - Limits the self-sustainability and growth of OSS projects.
+
+#### Some more problems with the current state of OSS
+
+- A lot of OSS projects are led by a single or a few core developers.
+- OSS projects are often started as a hobby or a side project and remain that way.
+- They do not have a well-defined roadmap or a clear vision for the future.
+- Lack of incentives to attract and retain a community of developers.
+
+#### Most important problem with the current state of OSS
+
+Most OSS projects are **made for Developers, not for Users.**
