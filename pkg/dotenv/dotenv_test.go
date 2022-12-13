@@ -6,17 +6,17 @@ import (
 	"testing"
 )
 
-func TestCreateDotEnv(t *testing.T) {
+func TestCreate(t *testing.T) {
 	// Generate random environment variables
 	envVars := genRandomVars()
 
 	// Check empty file path error
-	if _, err := CreateDotEnv("", envVars); err == nil {
+	if _, err := Create("", envVars); err == nil {
 		t.Error("expected error for empty file path")
 	}
 
 	// Check invalid file extension error
-	if _, err := CreateDotEnv("invalid.ENV", envVars); err == nil {
+	if _, err := Create("invalid.ENV", envVars); err == nil {
 		t.Error("expected error for invalid file extension")
 	}
 
@@ -27,7 +27,7 @@ func TestCreateDotEnv(t *testing.T) {
 	}
 
 	// Create .env file
-	fp, err := CreateDotEnv(file.Name(), envVars)
+	fp, err := Create(file.Name(), envVars)
 	if err != nil {
 		t.Error(err)
 	}
@@ -52,7 +52,7 @@ func TestLoad(t *testing.T) {
 	}
 
 	// Create .env file
-	fp, err := CreateDotEnv(file.Name(), envVars)
+	fp, err := Create(file.Name(), envVars)
 	if err != nil {
 		t.Error(err)
 	}

@@ -62,8 +62,8 @@ func Load(envFile string) error {
 	return nil
 }
 
-// CreateDotEnv create
-func CreateDotEnv(fp string, envVars map[string]string) (string, error) {
+// Create creates a new *.env file and writes environment variables to it.
+func Create(fp string, envVars map[string]string) (string, error) {
 	// Validate file path
 	if fp == "" {
 		return "", errors.New("file path is empty: " + fp)
