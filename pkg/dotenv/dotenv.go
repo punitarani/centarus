@@ -64,9 +64,19 @@ func Load(envFile string) error {
 
 // CreateDotEnv create
 func CreateDotEnv(fp string, envVars map[string]string) (string, error) {
+	// Validate file path
+	if fp == "" {
+		return "", errors.New("file path is empty: " + fp)
+	}
+
 	// Convert fp to absolute path
 	if fp, err := filepath.Abs(fp); err != nil {
 		return fp, err
+	}
+
+	// Validate .env file extension
+	if filepath.Ext(fp) != ".env" {
+		return "", errors.New("invalid .env file extension: " + fp)
 	}
 
 	// Check and create file
