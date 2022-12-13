@@ -10,6 +10,10 @@ import (
 
 // Load loads variables from *.env file into the environment.
 //
+// param fp: .env file path. fp can be relative filename or full absolute path.
+//
+// return: error if any.
+//
 // Key-value pairs are of the form: KEY=value
 // Comment lines start with '#'
 // Empty lines are ignored
@@ -63,6 +67,13 @@ func Load(envFile string) error {
 }
 
 // Create creates a new *.env file and writes environment variables to it.
+//
+// param fp: .env file path. fp can be relative filename or full absolute path.
+// param envVars: environment variables to write to the file.
+//
+// return: file path and error if any.
+//
+// Writes key-value pairs as: KEY=value
 func Create(fp string, envVars map[string]string) (string, error) {
 	// Validate file path
 	if fp == "" {
