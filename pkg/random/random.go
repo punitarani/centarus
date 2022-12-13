@@ -38,20 +38,14 @@ func Int64() (int64, error) {
 // min is the minimum number.
 // max is the maximum number.
 func Int(min, max int) (int, error) {
-	// Ensure min is less than max
-	if min > max {
-		min, max = max, min
-	}
-
-	// Get random number
-	ri, err := rand.Int(rand.Reader, big.NewInt(math.MaxInt))
+	// Generate a random *big.Int within the given range.
+	n, err := rand.Int(rand.Reader, big.NewInt(int64(max-min+1)))
 	if err != nil {
-		return 0, err
+		return min, err
 	}
 
-	offset := ri.Int64() % int64(max-min+1)
-
-	return min + int(offset), nil
+	// Add the minimum value to the random *big.Int and return the result as an int.
+	return int(n.Int64()) + min, nil
 }
 
 // String returns a random string.
