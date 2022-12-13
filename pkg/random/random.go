@@ -6,18 +6,18 @@ import (
 	"math/big"
 )
 
-// RandStringType is a type of random string.
-type RandStringType string
+// Charset is a set of characters that can be used to generate a random string.
+type Charset string
 
-// RandStringType Enums
+// Charset Enums
 const (
-	Alpha               RandStringType = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	Digit               RandStringType = "0123456789"
-	Special             RandStringType = "!@#$%^&*()_+-=[]{}|;':\",./<>?"
-	AlphaLower          RandStringType = "abcdefghijklmnopqrstuvwxyz"
-	AlphaUpper          RandStringType = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	AlphaNumeric        RandStringType = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-	AlphaNumericSpecial RandStringType = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?"
+	Alpha               Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+	Digit               Charset = "0123456789"
+	Special             Charset = "!@#$%^&*()_+-=[]{}|;':\",./<>?"
+	AlphaLower          Charset = "abcdefghijklmnopqrstuvwxyz"
+	AlphaUpper          Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	AlphaNumeric        Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+	AlphaNumericSpecial Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?"
 )
 
 // Int64 returns a random int64 number.
@@ -50,8 +50,8 @@ func Int(min, max int) (int, error) {
 // String returns a random string.
 //
 // length is the length of the string.
-// randStringType is the type of random string.
-func String(length int, chars RandStringType) (string, error) {
+// charset is the type of random string.
+func String(length int, chars Charset) (string, error) {
 	// Create a slice of bytes to store the generated string.
 	var b []byte
 
