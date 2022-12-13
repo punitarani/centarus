@@ -103,15 +103,27 @@ func CreateDotEnv(fp string, envVars map[string]string) (string, error) {
 
 // parseLine parses line and returns key and value.
 func parseLine(line string) (string, string, error) {
-	// Split line by delimiter "="
-	parts := strings.Split(line, "=")
-	if len(parts) != 2 {
+	if strings.TrimSpace(line) == "" {
+		return "", "", errors.New("empty line")
+	}
+
+	// Find the index of the "=" delimiter
+	delimiterIndex := strings.Index(line, "=")
+	if delimiterIndex == -1 {
 		return "", "", errors.New("invalid line")
 	}
 
-	// Strip spaces, tabs and delimiters
-	key := strings.TrimSpace(parts[0])
-	value := strings.TrimSpace(parts[1])
+	// Split the line into key and value parts
+	key := strings.TrimSpace(line[:delimiterIndex])
+	value := strings.TrimSpace(line[delimiterIndex+1:])
+
+	// Validate key and value
+	if key == "" {
+		return "", "", errors.New("missing key")
+	}
+	if value == "" {
+		return "", "", errors.New("missing value")
+	}
 
 	return key, value, nil
 }
