@@ -4,7 +4,6 @@ import (
 	"crypto/rand"
 	"math"
 	"math/big"
-	"strings"
 )
 
 // RandStringType is a type of random string.
@@ -53,20 +52,22 @@ func Int(min, max int) (int, error) {
 // length is the length of the string.
 // randStringType is the type of random string.
 func String(length int, chars RandStringType) (string, error) {
-	var sb strings.Builder
-	var cl = int64(len(chars))
+	// Create a slice of bytes to store the generated string.
+	var b []byte
 
+	// Generate the random string.
 	for i := 0; i < length; i++ {
-		// Get random int
-		nb, err := Int64()
+		// Generate a random integer within the range of the chars slice.
+		nb, err := rand.Int(rand.Reader, big.NewInt(int64(len(chars))))
 
 		if err != nil {
 			return "", err
 		} else {
-			nb %= cl // Get next random byte
-			sb.WriteByte(chars[nb])
+			// Append the random character to the slice of bytes.
+			b = append(b, chars[nb.Uint64()])
 		}
 	}
 
-	return sb.String(), nil
+	// Return the generated string.
+	return string(b), nil
 }
