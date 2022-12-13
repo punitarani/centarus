@@ -61,3 +61,13 @@
 #### Most important problem with the current state of OSS
 
 Most OSS projects are **made for Developers, not for Users.**
+
+### Summary
+
+Some of the key pain points of the current state of OSS include:
+- Lack of coordination and collaboration among different OSS projects
+- Lack of funding and resources
+- Lack of a business model to sustain OSS projects in the long term. 
+
+Additionally, many OSS projects are led by a single or a few core developers, are started as a hobby or side project, and do not have a well-defined roadmap or clear vision for the future.
+The most significant problem with the current state of OSS is that most projects are made for developers, not for users.
