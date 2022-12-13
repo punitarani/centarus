@@ -23,12 +23,14 @@ const (
 
 // Int64 returns a random int64 number.
 func Int64() (int64, error) {
-	ri, err := rand.Int(rand.Reader, big.NewInt(math.MaxInt64))
+	// Generate a random *big.Int using the crypto/rand package.
+	n, err := rand.Int(rand.Reader, big.NewInt(math.MaxInt64))
 	if err != nil {
 		return 0, err
 	}
 
-	return ri.Int64(), nil
+	// Convert the *big.Int to an int64 and return it.
+	return n.Int64(), nil
 }
 
 // Int returns a random int number.
