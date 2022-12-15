@@ -10,6 +10,10 @@ import (
 
 // Load loads variables from *.env file into the environment.
 //
+// param fp: .env file path. fp can be relative filename or full absolute path.
+//
+// return: error if any.
+//
 // Key-value pairs are of the form: KEY=value
 // Comment lines start with '#'
 // Empty lines are ignored
@@ -62,11 +66,28 @@ func Load(envFile string) error {
 	return nil
 }
 
-// CreateDotEnv create
-func CreateDotEnv(fp string, envVars map[string]string) (string, error) {
+// Create creates a new *.env file and writes environment variables to it.
+//
+// param fp: .env file path. fp can be relative filename or full absolute path.
+// param envVars: environment variables to write to the file.
+//
+// return: file path and error if any.
+//
+// Writes key-value pairs as: KEY=value
+func Create(fp string, envVars map[string]string) (string, error) {
+	// Validate file path
+	if fp == "" {
+		return "", errors.New("file path is empty: " + fp)
+	}
+
 	// Convert fp to absolute path
 	if fp, err := filepath.Abs(fp); err != nil {
 		return fp, err
+	}
+
+	// Validate .env file extension
+	if filepath.Ext(fp) != ".env" {
+		return "", errors.New("invalid .env file extension: " + fp)
 	}
 
 	// Check and create file
@@ -103,15 +124,27 @@ func CreateDotEnv(fp string, envVars map[string]string) (string, error) {
 
 // parseLine parses line and returns key and value.
 func parseLine(line string) (string, string, error) {
-	// Split line by delimiter "="
-	parts := strings.Split(line, "=")
-	if len(parts) != 2 {
+	if strings.TrimSpace(line) == "" {
+		return "", "", errors.New("empty line")
+	}
+
+	// Find the index of the "=" delimiter
+	delimiterIndex := strings.Index(line, "=")
+	if delimiterIndex == -1 {
 		return "", "", errors.New("invalid line")
 	}
 
-	// Strip spaces, tabs and delimiters
-	key := strings.TrimSpace(parts[0])
-	value := strings.TrimSpace(parts[1])
+	// Split the line into key and value parts
+	key := strings.TrimSpace(line[:delimiterIndex])
+	value := strings.TrimSpace(line[delimiterIndex+1:])
+
+	// Validate key and value
+	if key == "" {
+		return "", "", errors.New("missing key")
+	}
+	if value == "" {
+		return "", "", errors.New("missing value")
+	}
 
 	return key, value, nil
 }

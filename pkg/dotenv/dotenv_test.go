@@ -6,6 +6,41 @@ import (
 	"testing"
 )
 
+func TestCreate(t *testing.T) {
+	// Generate random environment variables
+	envVars := genRandomVars()
+
+	// Check empty file path error
+	if _, err := Create("", envVars); err == nil {
+		t.Error("expected error for empty file path")
+	}
+
+	// Check invalid file extension error
+	if _, err := Create("invalid.ENV", envVars); err == nil {
+		t.Error("expected error for invalid file extension")
+	}
+
+	// Create temp .env file
+	file, err := os.CreateTemp(os.TempDir(), "test.*.env")
+	if err != nil {
+		return
+	}
+
+	// Create .env file
+	fp, err := Create(file.Name(), envVars)
+	if err != nil {
+		t.Error(err)
+	}
+
+	// Delete .env file on function return
+	defer deleteDotEnv(file)
+
+	// Validate fp
+	if fp != file.Name() {
+		t.Error("invalid file path")
+	}
+}
+
 func TestLoad(t *testing.T) {
 	// Generate random environment variables
 	envVars := genRandomVars()
@@ -17,10 +52,13 @@ func TestLoad(t *testing.T) {
 	}
 
 	// Create .env file
-	fp, err := CreateDotEnv(file.Name(), envVars)
+	fp, err := Create(file.Name(), envVars)
 	if err != nil {
 		t.Error(err)
 	}
+
+	// Delete .env file on function return
+	defer deleteDotEnv(file)
 
 	// Load environment variables from the .env file
 	err = Load(fp)
@@ -33,16 +71,6 @@ func TestLoad(t *testing.T) {
 		if os.Getenv(key) != value {
 			t.Errorf("Environment variable %s is not loaded", key)
 		}
-	}
-
-	// Close file
-	if err = file.Close(); err != nil {
-		t.Error(err)
-	}
-
-	// Remove file
-	if err = os.Remove(fp); err != nil {
-		t.Error(err)
 	}
 }
 
@@ -62,4 +90,22 @@ func genRandomVars() map[string]string {
 	}
 
 	return envVars
+}
+
+// deleteDotEnv deletes the .env file.
+func deleteDotEnv(file *os.File) {
+	// Validate file input
+	if _, err := os.Stat(file.Name()); err != nil {
+		return
+	}
+
+	// Close file
+	if err := file.Close(); err != nil {
+		return
+	}
+
+	// Remove file
+	if err := os.Remove(file.Name()); err != nil {
+		return
+	}
 }
