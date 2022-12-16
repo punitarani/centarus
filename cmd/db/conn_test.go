@@ -12,6 +12,11 @@ func TestCreateCloseConnections(t *testing.T) {
 	// This ensures that the connections are closed if the function returns early.
 	defer CloseConnections()
 
+	// Check that ConnPool is not empty.
+	if len(ConnPool) == 0 {
+		t.Errorf("ConnPool is empty")
+	}
+
 	// Check that all connections were created.
 	for name, pool := range ConnPool {
 		if pool == nil {
