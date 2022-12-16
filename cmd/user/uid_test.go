@@ -3,17 +3,17 @@ package user
 import (
 	"testing"
 
-	"github.com/punitarani/centarus/pkg/dotenv"
+	"github.com/punitarani/centarus/cmd/db"
 )
 
 func TestGenUID(t *testing.T) {
-	var uids []string
-
-	// Load environment variables.
-	err := dotenv.Load("../db/db.env")
-	if err != nil {
-		t.Fatal(err)
+	// Setup
+	if err := db.CreateConnections(); err != nil {
+		t.Errorf("unable to create connections: %v", err)
 	}
+	defer db.CloseConnections()
+
+	var uids []string
 
 	// Generate 2**4 unique UIDs.
 	for i := 0; i < 1<<4; i++ {

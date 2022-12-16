@@ -2,11 +2,9 @@ package user
 
 import (
 	"context"
-	"fmt"
-	"log"
-	"os"
+	"errors"
 
-	"github.com/jackc/pgx/v5"
+	"github.com/punitarani/centarus/cmd/db"
 	"github.com/punitarani/centarus/pkg/random"
 )
 
@@ -15,17 +13,11 @@ const UIDLength = 30
 // GenUID generates a unique identifier for a user.
 // UID is a 30 character string of alphanumeric characters.
 func GenUID() (string, error) {
-	// Connect to the database.
 	ctx := context.Background()
-	conn, err := pgx.Connect(ctx, os.Getenv("DB_USERDATA_URL"))
-	if err != nil {
-		return "", fmt.Errorf("unable to connect to database: %w", err)
+	userdataDB := db.ConnPool["userdata"]
+	if userdataDB == nil {
+		return "", errors.New("userdata database not connected")
 	}
-	defer func() {
-		if err := conn.Close(ctx); err != nil {
-			log.Printf("unable to close database connection: %v", err)
-		}
-	}()
 
 	// Generate a UID that is not already in the database.
 	for {
@@ -37,7 +29,7 @@ func GenUID() (string, error) {
 		// Query the database to see if the UID is already in use.
 		// If UID already exists, generate a new one.
 		var count int
-		err = conn.QueryRow(ctx, "SELECT COUNT(*) FROM user_info WHERE user_id = $1", uid).Scan(&count)
+		err = userdataDB.QueryRow(ctx, "SELECT COUNT(*) FROM user_info WHERE user_id = $1", uid).Scan(&count)
 		if err != nil {
 			return "", err
 		}
