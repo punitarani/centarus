@@ -17,13 +17,10 @@ func TestString(t *testing.T) {
 		AlphaNumericSpecial,
 	}
 
-	// Generate 2**4 strings for each combination and validate them.
-	for i := 0; i < 1<<4; i++ {
-		// Generate the length and charset.
-		for l := 1; l <= 4; l++ {
-			n := 1 << (1 << l)
-			for _, charset := range charsets {
-				// Generate and test for each charset.
+	for n := 8; n <= 4092; n <<= 1 {
+		for _, charset := range charsets {
+			for i := 0; i < 1<<4; i++ {
+				// Generate and test for each length and charset 2**4 times.
 				s, err := String(n, charset)
 				if err != nil {
 					t.Error(err)
