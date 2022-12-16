@@ -39,7 +39,9 @@ func CreateConnections() error {
 // CloseConnections closes connections to all databases.
 func CloseConnections() {
 	for name, pool := range ConnPool {
-		pool.Close()
+		if pool != nil {
+			pool.Close()
+		}
 		ConnPool[name] = nil
 	}
 }
