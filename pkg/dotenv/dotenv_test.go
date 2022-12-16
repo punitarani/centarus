@@ -45,6 +45,14 @@ func TestLoad(t *testing.T) {
 	// Generate random environment variables
 	envVars := genRandomVars()
 
+	// Test 'check' param functionality
+	if err := Load("missing.env", false); err != nil {
+		t.Error("expected no error for missing file with check=false")
+	}
+	if err := Load("missing.env", true); err == nil {
+		t.Error("expected error for missing file with check=true")
+	}
+
 	// Create temp .env file
 	file, err := os.CreateTemp(os.TempDir(), "test.*.env")
 	if err != nil {
@@ -61,7 +69,7 @@ func TestLoad(t *testing.T) {
 	defer deleteDotEnv(file)
 
 	// Load environment variables from the .env file
-	err = Load(fp)
+	err = Load(fp, true)
 	if err != nil {
 		t.Error(err)
 	}

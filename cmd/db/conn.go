@@ -58,14 +58,14 @@ func loadEnvVars() error {
 	dbEnv := path.Join(filepath.Dir(file), "db.env")
 
 	// Load environment variables.
-	if err := dotenv.Load(dbEnv); err != nil {
+	if err := dotenv.Load(dbEnv, false); err != nil {
 		return err
 	}
 	// Get and validate the database urls.
 	for name, env := range dbEnvNames {
 		url := os.Getenv(env)
 		if url == "" {
-			return errors.New("missing database url for " + name)
+			return errors.New("missing environment variable: " + env)
 		}
 		// Add database url to dbs map.
 		dbs[name] = url
