@@ -11,16 +11,20 @@ import (
 // Load loads variables from *.env file into the environment.
 //
 // param fp: .env file path. fp can be relative filename or full absolute path.
+// param check: if true, it will check if the file exists.
 //
 // return: error if any.
 //
 // Key-value pairs are of the form: KEY=value
 // Comment lines start with '#'
 // Empty lines are ignored
-func Load(envFile string) error {
+func Load(envFile string, check bool) error {
 	// Check if file exists
 	if _, err := os.Stat(envFile); err != nil {
-		return err
+		if check {
+			return err
+		}
+		return nil
 	}
 
 	// Open file

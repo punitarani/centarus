@@ -58,7 +58,7 @@ func loadEnvVars() error {
 	dbEnv := path.Join(filepath.Dir(file), "db.env")
 
 	// Load environment variables.
-	if err := dotenv.Load(dbEnv); err != nil {
+	if err := dotenv.Load(dbEnv, false); err != nil {
 		return err
 	}
 	// Get and validate the database urls.
