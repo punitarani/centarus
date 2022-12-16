@@ -3,6 +3,11 @@ package db
 import (
 	"context"
 	"errors"
+	"os"
+	"path"
+	"path/filepath"
+	"runtime"
+
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/punitarani/centarus/pkg/dotenv"
 )
@@ -10,13 +15,13 @@ import (
 // ConnPool is a map of database connection pools.
 var ConnPool = make(map[string]*pgxpool.Pool)
 
+// dbs is a map of database names to database urls.
+var dbs = make(map[string]string)
+
 // dbEnvNames is a map of database names to environment variable names.
 var dbEnvNames = map[string]string{
 	"userdata": "DB_USERDATA_URL",
 }
-
-// dbs is a map of database names to database urls.
-var dbs = make(map[string]string)
 
 // CreateConnections creates connections to all databases.
 func CreateConnections() error {
@@ -48,16 +53,22 @@ func CloseConnections() {
 
 // loadEnvVars loads environment variables from the db.env file.
 func loadEnvVars() error {
+	// Get the absolute file path of db.env.
+	_, file, _, _ := runtime.Caller(0)
+	dbEnv := path.Join(filepath.Dir(file), "db.env")
+
 	// Load environment variables.
-	if err := dotenv.Load("db.env"); err != nil {
+	if err := dotenv.Load(dbEnv); err != nil {
 		return err
 	}
-
-	// Check that all database urls are set.
-	for name, url := range dbEnvNames {
+	// Get and validate the database urls.
+	for name, env := range dbEnvNames {
+		url := os.Getenv(env)
 		if url == "" {
 			return errors.New("missing database url for " + name)
 		}
+		// Add database url to dbs map.
+		dbs[name] = url
 	}
 
 	return nil
