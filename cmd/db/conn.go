@@ -65,7 +65,7 @@ func loadEnvVars() error {
 	for name, env := range dbEnvNames {
 		url := os.Getenv(env)
 		if url == "" {
-			return errors.New("missing database url for " + name)
+			return errors.New("missing environment variable: " + env)
 		}
 		// Add database url to dbs map.
 		dbs[name] = url
