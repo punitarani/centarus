@@ -12,16 +12,16 @@ import (
 	"github.com/punitarani/centarus/pkg/dotenv"
 )
 
+// dbEnvNames is a map of database names to environment variable names.
+var dbEnvNames = map[string]string{
+	"userdata": "DB_USERDATA_URL",
+}
+
 // ConnPool is a map of database connection pools.
 var ConnPool = make(map[string]*pgxpool.Pool)
 
 // dbs is a map of database names to database urls.
 var dbs = make(map[string]string)
-
-// dbEnvNames is a map of database names to environment variable names.
-var dbEnvNames = map[string]string{
-	"userdata": "DB_USERDATA_URL",
-}
 
 // CreateConnections creates connections to all databases.
 func CreateConnections() error {
