@@ -51,7 +51,8 @@ func CloseConnections() {
 	}
 }
 
-// loadEnvVars loads environment variables from the db.env file.
+// loadEnvVars reads the database urls from the environment variables and stores them in the dbs map.
+// If db.env is found in the current directory, it is loaded.
 func loadEnvVars() error {
 	// Get the absolute file path of db.env.
 	_, file, _, _ := runtime.Caller(0)
