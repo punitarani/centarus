@@ -4,9 +4,7 @@ import (
 	"context"
 	"errors"
 	"os"
-	"path"
-	"path/filepath"
-	"runtime"
+	"os/exec"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/punitarani/centarus/pkg/dotenv"
@@ -52,11 +50,14 @@ func CloseConnections() {
 }
 
 // loadEnvVars reads the database urls from the environment variables and stores them in the dbs map.
-// If db.env is found in the current directory, it is loaded.
+// If .secrets.env is present in project root, it is loaded into the environment.
 func loadEnvVars() error {
-	// Get the absolute file path of db.env.
-	_, file, _, _ := runtime.Caller(0)
-	dbEnv := path.Join(filepath.Dir(file), "db.env")
+	// Get the path to the .secrets.env file.
+	dbDir, err := exec.Command("go", "list", "-f", "{{.Root}}").Output()
+	if err != nil {
+		return err
+	}
+	dbEnv := string(dbDir[:len(dbDir)-1]) + "/.secrets.env"
 
 	// Load environment variables.
 	if err := dotenv.Load(dbEnv, false); err != nil {
