@@ -1,9 +1,8 @@
 package user
 
 import (
+	"github.com/punitarani/centarus/pkg/db"
 	"testing"
-
-	"github.com/punitarani/centarus/cmd/db"
 )
 
 func TestGenUID(t *testing.T) {

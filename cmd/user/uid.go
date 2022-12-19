@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 	"errors"
+	"github.com/punitarani/centarus/pkg/db"
 
-	"github.com/punitarani/centarus/cmd/db"
 	"github.com/punitarani/centarus/pkg/random"
 )
 
