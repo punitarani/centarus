@@ -1,6 +1,7 @@
 # Centarus
 
 [![Go Build and Test](https://github.com/punitarani/centarus/actions/workflows/go.yml/badge.svg)](https://github.com/punitarani/centarus/actions/workflows/go.yml)
+[![CodeQL](https://github.com/punitarani/centarus/actions/workflows/codeql.yml/badge.svg)](https://github.com/punitarani/centarus/actions/workflows/codeql.yml)
 
 ## Project Requirements
 
