@@ -10,7 +10,10 @@ import (
 )
 
 // Config settings
-type Config struct{}
+type Config struct {
+	// Database
+	DSN string
+}
 
 // LoadConfigFile reads and parses the specified config file
 // param configFile: the name of the config file to load. Must be in the `conf` directory
