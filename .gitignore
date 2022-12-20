@@ -1,6 +1,7 @@
 ### gitignore
 # Secrets
 *.env
+/conf/config.toml
 
 
 ### Go
