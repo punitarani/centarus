@@ -71,3 +71,25 @@ Some of the key pain points of the current state of OSS include:
 
 Additionally, many OSS projects are led by a single or a few core developers, are started as a hobby or side project, and do not have a well-defined roadmap or clear vision for the future.
 The most significant problem with the current state of OSS is that most projects are made for developers, not for users.
+
+---
+
+## Organization
+
+### What is an Organization
+
+**A group of people with a common purpose.**
+
+- Defined structure with some chain of command for decision-making.
+- Policies and culture to guide the behavior of the members.
+- Financial and human resources to support the operations.
+- Systems and processes to coordinate, manage and track activities.
+
+#### What is a Corporation
+
+A legal organization that is separate from its owners.
+
+- Limited liability
+- Ownership
+- Management
+- Continuous existence
