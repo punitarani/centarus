@@ -93,3 +93,15 @@ A legal organization that is separate from its owners.
 - Ownership
 - Management
 - Continuous existence
+
+### Why form an Organization
+
+- **Purpose**: To achieve a common goal.
+- **Structure**: To define the roles and responsibilities of the members.
+- **Culture**: To guide the behavior of the members.
+- **Resources**: To support the operations.
+- **Systems**: To coordinate, manage and track activities.
+- **Governance**: To ensure the organization is operating in accordance with its purpose.
+- **Accountability**: To ensure the organization is accountable to its members and stakeholders.
+- **Transparency**: To ensure the organization is transparent to its members and stakeholders.
+- **Sustainability**: To ensure the organization is sustainable in the long term.
