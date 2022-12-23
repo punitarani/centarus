@@ -11,12 +11,14 @@ import (
 
 // Config settings
 type Config struct {
-	// Database
-	DSN string
+	// List of database configs. [dbs] contains multiple [dbs.db] sections.
+	DBs map[string]DbCfg `toml:"dbs"`
 }
 
 // LoadConfigFile reads and parses the specified config file
 // param configFile: the name of the config file to load. Must be in the `conf` directory
+//
+// panic: if the configFile can not be closed
 func LoadConfigFile(configFile string) (Config, error) {
 	var cfg Config
 	configFP := filepath.Join(getConfDir(), configFile)
@@ -32,7 +34,13 @@ func LoadConfigFile(configFile string) (Config, error) {
 	if err != nil {
 		return cfg, err
 	}
-	defer file.Close()
+
+	// Close the file when we're done
+	defer func(file *os.File) {
+		if err := file.Close(); err != nil {
+			panic(err)
+		}
+	}(file)
 
 	// Parse the config file
 	data := make([]byte, fileInfo.Size())
