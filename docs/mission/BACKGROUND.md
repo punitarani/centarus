@@ -105,3 +105,24 @@ A legal organization that is separate from its owners.
 - **Accountability**: To ensure the organization is accountable to its members and stakeholders.
 - **Transparency**: To ensure the organization is transparent to its members and stakeholders.
 - **Sustainability**: To ensure the organization is sustainable in the long term.
+
+### Problems with Corporations (in general)
+
+- **Degradation of mission over time**: Solve a problem -> Increase market share -> Increase profits and power.
+- **Lack of transparency and accountability**: The inner workings of most organizations are not publicly available.
+- ** Lack of continued innovation**: Most organizations fail to innovate and adapt in the long run.
+
+#### The Double-Edged Sword: Investors
+
+- They want to realize ROI ASAP.
+- They fail to recognize value to the community.
+- They divert resources away from the primary mission.
+
+**Investors are necessary** for the growth of a company.
+In fact, they are often the **primary source of funding** for most companies.
+However, they are also a **significant source of problems** for most companies.
+
+Investors in this context are not individuals who invest in a company.
+They are the **venture capitalists** and **private equity firms**.
+
+---
