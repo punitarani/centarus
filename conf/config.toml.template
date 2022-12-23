@@ -1,2 +1,30 @@
-# Database
-dsn = """DSN"""
+# config.toml Template
+
+[dbs]
+
+[dbs.postgres]
+driver   = """postgres_Driver"""
+username = """postgres_Username"""
+password = """postgres_Password"""
+host     = """postgres_Host"""
+port     = 1234
+name     = """postgres_Name"""
+dsn      = """postgres_DSN"""
+
+[dbs.redis]
+driver   = "redis_Driver"
+username = "redis_Username"
+password = "redis_Password"
+host     = "redis_Host"
+port     = 1234
+name     = "redis_Name"
+dsn      = "redis_DSN"
+
+[dbs.elasticsearch]
+driver   = "elasticsearch_Driver"
+username = "elasticsearch_Username"
+password = "elasticsearch_Password"
+host     = "elasticsearch_Host"
+port     = 1234
+name     = "elasticsearch_Name"
+dsn      = "elasticsearch_DSN"
