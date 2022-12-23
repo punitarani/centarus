@@ -1,7 +1,6 @@
 package setting
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -12,7 +11,6 @@ func TestLoadConfigFile(t *testing.T) {
 		t.Fatalf("unable to load config file: %v", err)
 	}
 
-	fmt.Println(cfg)
 	// Check that the Config struct was populated correctly.
 	cfgVal := reflect.ValueOf(cfg)
 	for i := 0; i < cfgVal.NumField(); i++ {
