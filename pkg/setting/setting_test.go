@@ -19,7 +19,7 @@ func TestLoadConfigFile(t *testing.T) {
 		fieldVal := cfgVal.Field(i).Interface()
 
 		switch fieldName {
-		case "DBs":
+		case "Db":
 			CheckDBs(t, fieldVal.(map[string]DbCfg))
 
 		default:

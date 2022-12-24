@@ -1,34 +1,34 @@
 # config.toml Template
 
-[dbs]
+[Db]
 
-[dbs.postgres]
-driver   = """postgres_Driver"""
-username = """postgres_Username"""
-password = """postgres_Password"""
-host     = """postgres_Host"""
-port     = 1234
-name     = """postgres_Name"""
-dsn      = """postgres_DSN"""
-[dbs.postgres.params]
-ssl_mode            = "param_SslMode"
-ssl_cert            = "param_SslCert"
-ssl_key             = "param_SslKey"
-ssl_root_cert       = "param_SslRootCert"
-ssl_crl             = "param_SslCrl"
-app_name            = "param_AppName"
-fallback_app_name   = "param_FallbackAppName"
-connect_timeout     = 1
-keepalives          = false
-keepalives_idle     = 1
-keepalives_interval = 1
-keepalives_count    = 1
+[Db.Postgres]
+Driver   = """Postgres_Driver"""
+Username = """Postgres_Username"""
+Password = """Postgres_Password"""
+Host     = """Postgres_Host"""
+Port     = 1234
+Name     = """Postgres_Name"""
+DSN      = """Postgres_DSN"""
+[Db.Postgres.Params]
+SslMode            = "param_SslMode"
+SslCert            = "param_SslCert"
+SslKey             = "param_SslKey"
+SslRootCert       = "param_SslRootCert"
+SslCrl             = "param_SslCrl"
+AppName            = "param_AppName"
+FallbackAppName   = "param_FallbackAppName"
+ConnectTimeout     = 1
+Keepalives          = false
+KeepalivesIdle     = 1
+KeepalivesInterval = 1
+KeepalivesCount    = 1
 
-[dbs.redis]
-driver   = "redis_Driver"
-username = "redis_Username"
-password = "redis_Password"
-host     = "redis_Host"
-port     = 1234
-name     = "redis_Name"
-dsn      = "redis_DSN"
+[Db.Redis]
+Driver   = "Redis_Driver"
+Username = "Redis_Username"
+Password = "Redis_Password"
+Host     = "Redis_Host"
+Port     = 1234
+Name     = "Redis_Name"
+DSN      = "Redis_DSN"

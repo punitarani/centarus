@@ -11,8 +11,8 @@ import (
 
 // Config settings
 type Config struct {
-	// List of database configs. [dbs] contains multiple [dbs.db] sections.
-	DBs map[string]DbCfg `toml:"dbs"`
+	// List of database configs. [Db] contains multiple [Db.<db>] sections.
+	Db map[string]DbCfg
 }
 
 // LoadConfigFile reads and parses the specified config file
