@@ -11,18 +11,18 @@ port     = 1234
 name     = """postgres_Name"""
 dsn      = """postgres_DSN"""
 [dbs.postgres.params]
-ssl_mode = "param_SslMode"
-ssl_cert = "param_SslCert"
-ssl_key = "param_SslKey"
-ssl_root_cert = "param_SslRootCert"
-ssl_crl = "param_SslCrl"
-app_name = "param_AppName"
-fallback_app_name = "param_FallbackAppName"
-connect_timeout = 1
-keepalives = false
-keepalives_idle = 1
+ssl_mode            = "param_SslMode"
+ssl_cert            = "param_SslCert"
+ssl_key             = "param_SslKey"
+ssl_root_cert       = "param_SslRootCert"
+ssl_crl             = "param_SslCrl"
+app_name            = "param_AppName"
+fallback_app_name   = "param_FallbackAppName"
+connect_timeout     = 1
+keepalives          = false
+keepalives_idle     = 1
 keepalives_interval = 1
-keepalives_count = 1
+keepalives_count    = 1
 
 [dbs.redis]
 driver   = "redis_Driver"
