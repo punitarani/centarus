@@ -11,18 +11,18 @@ Port     = 1234
 Name     = """Postgres_Name"""
 DSN      = """Postgres_DSN"""
 [Db.Postgres.Params]
-SslMode            = "param_SslMode"
-SslCert            = "param_SslCert"
-SslKey             = "param_SslKey"
-SslRootCert       = "param_SslRootCert"
-SslCrl             = "param_SslCrl"
-AppName            = "param_AppName"
-FallbackAppName   = "param_FallbackAppName"
-ConnectTimeout     = 1
-Keepalives          = false
-KeepalivesIdle     = 1
-KeepalivesInterval = 1
-KeepalivesCount    = 1
+SslMode            = "Value_SslMode"
+SslCert            = "Value_SslCert"
+SslKey             = "Value_SslKey"
+SslRootCert        = "Value_SslRootCert"
+SslCrl             = "Value_SslCrl"
+AppName            = "Value_AppName"
+FallbackAppName    = "Value_FallbackAppName"
+ConnectTimeout     = "-1"
+Keepalives         = "false"
+KeepalivesIdle     = "-1"
+KeepalivesInterval = "-1"
+KeepalivesCount    = "-1"
 
 [Db.Redis]
 Driver   = "Redis_Driver"

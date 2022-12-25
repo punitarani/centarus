@@ -22,8 +22,8 @@ func CheckDBs(t *testing.T, dbs map[string]DbCfg) {
 			fieldVal := dbVal.Field(i).Interface()
 
 			// Handle the Params field.
-			if fieldName == "Params" {
-				CheckDbParams(t, fieldVal.(DbCfgParams))
+			if fieldName == "Params" && fieldVal != nil {
+				CheckDbParams(t, fieldVal.(map[DbCfgParams]string))
 			} else if fieldVal == "" || fieldVal == nil || fieldVal == 0 {
 				// Check that the field value is not empty or 0.
 				t.Errorf("field %v is empty", fieldName)
@@ -42,30 +42,21 @@ func CheckDBs(t *testing.T, dbs map[string]DbCfg) {
 }
 
 // CheckDbParams checks that the DbCfgParams struct was populated correctly.
-func CheckDbParams(t *testing.T, params DbCfgParams) {
-	// Check that the Params struct was populated correctly.
-	paramsVal := reflect.ValueOf(params)
-	for i := 0; i < paramsVal.NumField(); i++ {
-		// Get the field name and value.
-		fieldName := paramsVal.Type().Field(i).Name
-		fieldVal := paramsVal.Field(i).Interface()
-		fieldType := paramsVal.Type().Field(i).Type
+func CheckDbParams(t *testing.T, params map[DbCfgParams]string) {
+	for k, v := range params {
+		// Check that value is not empty
+		if v == "" {
+			t.Errorf("field %v is empty", k)
+		}
 
-		if fieldVal == "" || fieldVal == nil || fieldVal == 0 {
-			// Ignore if empty.
-		} else if fieldType == reflect.TypeOf(false) {
-			// Handle bool fields separately.
-			if fieldVal != false {
-				t.Errorf("field %v is not equal to %v", fieldName, false)
-			}
-		} else if fieldType == reflect.TypeOf(1) {
-			// Handle int fields separately.
-			if fieldVal != 1 {
-				t.Errorf("field %v is not equal to %v", fieldName, 1)
-			}
-		} else if expectedVal := fmt.Sprintf("param_%v", fieldName); fieldVal != expectedVal {
-			// Check that the field value is equal to the expected value.
-			t.Errorf("field %v is not equal to %v", fieldVal, expectedVal)
+		acceptableValues := []string{
+			fmt.Sprintf("%v_%v", "Value", k),
+			"false",
+			"-1",
+		}
+		// Check that the field value is acceptable
+		if !(v == acceptableValues[0] || v == acceptableValues[1] || v == acceptableValues[2]) {
+			t.Errorf("field %v is acceptable %v", v, acceptableValues)
 		}
 	}
 }

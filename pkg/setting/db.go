@@ -10,22 +10,26 @@ type DbCfg struct {
 	Name     string
 
 	// [Db.<db>.Params] section
-	Params DbCfgParams
+	Params map[DbCfgParams]string
 
 	DSN string
 }
 
-type DbCfgParams struct {
-	SslMode            string
-	SslCert            string
-	SslKey             string
-	SslRootCert        string
-	SslCrl             string
-	AppName            string
-	FallbackAppName    string
-	ConnectTimeout     int
-	Keepalives         bool
-	KeepalivesIdle     int
-	KeepalivesInterval int
-	KeepalivesCount    int
-}
+// DbCfgParams database configuration parameters value
+//
+//	 Supported parameters:
+//		SslMode            string
+//		SslCert            string
+//		SslKey             string
+//		SslRootCert        string
+//		SslCrl             string
+//		AppName            string
+//		FallbackAppName    string
+//		ConnectTimeout     int
+//		Keepalives         bool
+//		KeepalivesIdle     int
+//		KeepalivesInterval int
+//		KeepalivesCount    int
+//
+// All parameters must be cast to string.
+type DbCfgParams string
