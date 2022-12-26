@@ -62,6 +62,7 @@ func LoadConfigFile(configFile string) (Config, error) {
 			return cfg, fmt.Errorf("invalid Db.%v: %v", db, err)
 		}
 		BuildDSN(&dbCfg)
+		cfg.Db[db] = dbCfg
 	}
 
 	return cfg, nil
