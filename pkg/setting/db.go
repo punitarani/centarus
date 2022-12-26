@@ -101,7 +101,7 @@ func isValidDbCfgParam(param string) bool {
 func BuildDSN(cfg *DbCfg) string {
 	var dsn string
 
-	// Build the Base DSN
+	// Build the base DSN
 	dsn = fmt.Sprintf("%s://%s:%s@%s:%d/%s", cfg.Driver, cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.Name)
 
 	// Add the Params
@@ -112,6 +112,9 @@ func BuildDSN(cfg *DbCfg) string {
 		}
 		dsn = fmt.Sprintf("%s?%s", dsn, values.Encode())
 	}
+
+	// Update the DbCfg struct
+	cfg.DSN = dsn
 
 	return dsn
 }
