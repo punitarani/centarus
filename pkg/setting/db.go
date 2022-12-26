@@ -1,5 +1,10 @@
 package setting
 
+import (
+	"fmt"
+	"net/url"
+)
+
 // DbCfg database configuration settings
 type DbCfg struct {
 	Driver   string
@@ -33,3 +38,22 @@ type DbCfg struct {
 //
 // All parameters must be cast to string.
 type DbCfgParams string
+
+// BuildDSN builds the Data Source Name (DSN) connection url from the DbCfg struct.
+func BuildDSN(cfg *DbCfg) string {
+	var dsn string
+
+	// Build the Base DSN
+	dsn = fmt.Sprintf("%s://%s:%s@%s:%d/%s", cfg.Driver, cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.Name)
+
+	// Add the Params
+	if len(cfg.Params) > 0 {
+		values := url.Values{}
+		for k, v := range cfg.Params {
+			values.Add(string(k), v)
+		}
+		dsn = fmt.Sprintf("%s?%s", dsn, values.Encode())
+	}
+
+	return dsn
+}

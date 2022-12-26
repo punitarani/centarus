@@ -6,6 +6,61 @@ import (
 	"testing"
 )
 
+func TestBuildDSN(t *testing.T) {
+	tests := []struct {
+		cfg  DbCfg
+		want string
+	}{
+		{
+			cfg: DbCfg{
+				Driver:   "mysql",
+				Username: "user1",
+				Password: "pass1",
+				Host:     "localhost",
+				Port:     1234,
+				Name:     "test1",
+			},
+			want: "mysql://user1:pass1@localhost:1234/test1",
+		},
+		{
+			cfg: DbCfg{
+				Driver:   "postgres",
+				Username: "user2",
+				Password: "pass2",
+				Host:     "someHost@west.US-2",
+				Port:     54321,
+				Name:     "test2",
+
+				Params: map[DbCfgParams]string{
+					"SslMode":            "verify-full",
+					"SslCert":            "cert1",
+					"SslKey":             "key1",
+					"SslRootCert":        "rootCert1",
+					"SslCrl":             "crl1",
+					"AppName":            "app1",
+					"FallbackAppName":    "fallbackApp1",
+					"ConnectTimeout":     "10",
+					"Keepalives":         "true",
+					"KeepalivesIdle":     "11",
+					"KeepalivesInterval": "12",
+					"KeepalivesCount":    "13",
+				},
+			},
+			want: "postgres://user2:pass2@someHost@west.US-2:54321/test2?" +
+				"AppName=app1&ConnectTimeout=10&FallbackAppName=fallbackApp1&Keepalives=true&" +
+				"KeepalivesCount=13&KeepalivesIdle=11&KeepalivesInterval=12&SslCert=cert1&" +
+				"SslCrl=crl1&SslKey=key1&SslMode=verify-full&SslRootCert=rootCert1",
+		},
+	}
+
+	for _, tt := range tests {
+		got := BuildDSN(&tt.cfg)
+		if got != tt.want {
+			t.Errorf("BuildDSN() = %v, want %v", got, tt.want)
+		}
+	}
+}
+
 // CheckDBs checks that the DbCfg map was populated correctly.
 func CheckDBs(t *testing.T, dbs map[string]DbCfg) {
 	for dbName, db := range dbs {
