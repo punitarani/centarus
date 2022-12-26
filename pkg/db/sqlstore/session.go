@@ -10,6 +10,19 @@ type DbSession struct {
 	Db *sqlx.DB // Database connection
 }
 
+// WithSession calls the callback with a new session.
+func (ss *SQLStore) WithSession(fn TransactionFunc) error {
+	// Connect to the database
+	sess, err := startSession(ss.Cfg)
+	if err != nil {
+		return err
+	}
+	defer closeSession(sess)
+
+	// Call the callback with the session.
+	return fn(sess)
+}
+
 // startSession starts a new database session.
 func startSession(cfg *setting.DbCfg) (*DbSession, error) {
 	// Establish a new connection to the database.
