@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/jackc/pgx/v5 v5.2.0
+	github.com/jmoiron/sqlx v1.3.5
 	github.com/pelletier/go-toml/v2 v2.0.6
 	golang.org/x/crypto v0.4.0
 )
