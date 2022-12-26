@@ -15,12 +15,12 @@ type DbCfg struct {
 	Name     string
 
 	// [Db.<db>.Params] section
-	Params map[DbCfgParams]string
+	Params map[DbCfgParam]string
 
 	DSN string
 }
 
-// DbCfgParams database configuration parameters value
+// DbCfgParam database configuration parameter
 //
 //	 Supported parameters:
 //		SslMode            string
@@ -37,7 +37,7 @@ type DbCfg struct {
 //		KeepalivesCount    int
 //
 // All parameters must be cast to string.
-type DbCfgParams string
+type DbCfgParam string
 
 // BuildDSN builds the Data Source Name (DSN) connection url from the DbCfg struct.
 func BuildDSN(cfg *DbCfg) string {

@@ -31,7 +31,7 @@ func TestBuildDSN(t *testing.T) {
 				Port:     54321,
 				Name:     "test2",
 
-				Params: map[DbCfgParams]string{
+				Params: map[DbCfgParam]string{
 					"SslMode":            "verify-full",
 					"SslCert":            "cert1",
 					"SslKey":             "key1",
@@ -78,7 +78,7 @@ func CheckDBs(t *testing.T, dbs map[string]DbCfg) {
 
 			// Handle the Params field.
 			if fieldName == "Params" && fieldVal != nil {
-				CheckDbParams(t, fieldVal.(map[DbCfgParams]string))
+				CheckDbParams(t, fieldVal.(map[DbCfgParam]string))
 			} else if fieldVal == "" || fieldVal == nil || fieldVal == 0 {
 				// Check that the field value is not empty or 0.
 				t.Errorf("field %v is empty", fieldName)
@@ -96,8 +96,8 @@ func CheckDBs(t *testing.T, dbs map[string]DbCfg) {
 	}
 }
 
-// CheckDbParams checks that the DbCfgParams struct was populated correctly.
-func CheckDbParams(t *testing.T, params map[DbCfgParams]string) {
+// CheckDbParams checks that the DbCfgParam struct was populated correctly.
+func CheckDbParams(t *testing.T, params map[DbCfgParam]string) {
 	for k, v := range params {
 		// Check that value is not empty
 		if v == "" {
