@@ -105,6 +105,8 @@ func TestValidateDbCfg(t *testing.T) {
 }
 
 func TestBuildDSN(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		cfg  DbCfg
 		want string
