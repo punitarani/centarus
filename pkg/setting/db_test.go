@@ -74,30 +74,32 @@ func TestValidateDbCfg(t *testing.T) {
 
 	// Test valid DB config
 	for _, test := range tests {
-		// Copy validCfg to cfg
-		cfg := DbCfg{}
-		cfgVal := reflect.ValueOf(&cfg).Elem()
-		for i := 0; i < cfgVal.NumField(); i++ {
-			cfgVal.Field(i).Set(validCfgVal.Field(i))
-		}
-
-		// Set invalid value
-		// Convert to int if necessary
-		if cfgVal.FieldByName(test.key).Kind() == reflect.Int {
-			val, err := strconv.ParseInt(test.val, 10, 64)
-			if err != nil {
-				t.Errorf("strconv.Atoi() on %v returned error %v", test.val, err)
+		t.Run(test.name, func(t *testing.T) {
+			// Copy validCfg to cfg
+			cfg := DbCfg{}
+			cfgVal := reflect.ValueOf(&cfg).Elem()
+			for i := 0; i < cfgVal.NumField(); i++ {
+				cfgVal.Field(i).Set(validCfgVal.Field(i))
 			}
-			cfgVal.FieldByName(test.key).SetInt(val)
-		} else {
-			cfgVal.FieldByName(test.key).SetString(test.val)
-		}
 
-		// Validate DB config
-		err := ValidateDbCfg(&cfg)
-		if err == nil {
-			t.Errorf("ValidateDbCfg() = nil, want error for %v=%v", test.key, test.val)
-		}
+			// Set invalid value
+			// Convert to int if necessary
+			if cfgVal.FieldByName(test.key).Kind() == reflect.Int {
+				val, err := strconv.ParseInt(test.val, 10, 64)
+				if err != nil {
+					t.Errorf("strconv.Atoi() on %v returned error %v", test.val, err)
+				}
+				cfgVal.FieldByName(test.key).SetInt(val)
+			} else {
+				cfgVal.FieldByName(test.key).SetString(test.val)
+			}
+
+			// Validate DB config
+			err := ValidateDbCfg(&cfg)
+			if err == nil {
+				t.Errorf("ValidateDbCfg() = nil, want error for %v=%v", test.key, test.val)
+			}
+		})
 	}
 }
 
