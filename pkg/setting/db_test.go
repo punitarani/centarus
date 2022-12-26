@@ -151,10 +151,12 @@ func TestBuildDSN(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		got := BuildDSN(&tt.cfg)
-		if got != tt.want {
-			t.Errorf("BuildDSN() = %v, want %v", got, tt.want)
-		}
+		t.Run(tt.want, func(t *testing.T) {
+			got := BuildDSN(&tt.cfg)
+			if got != tt.want {
+				t.Errorf("BuildDSN() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
 
