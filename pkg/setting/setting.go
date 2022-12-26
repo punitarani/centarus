@@ -1,6 +1,7 @@
 package setting
 
 import (
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -53,6 +54,13 @@ func LoadConfigFile(configFile string) (Config, error) {
 	err = toml.Unmarshal(data, &cfg)
 	if err != nil {
 		return cfg, err
+	}
+
+	// Validate Db configs
+	for db, dbCfg := range cfg.Db {
+		if err := ValidateDbCfg(&dbCfg); err != nil {
+			return cfg, fmt.Errorf("invalid Db.%v: %v", db, err)
+		}
 	}
 
 	return cfg, nil
