@@ -39,6 +39,64 @@ type DbCfg struct {
 // All parameters must be cast to string.
 type DbCfgParam string
 
+// ValidateDbCfg checks if the DbCfg struct is valid.
+func ValidateDbCfg(cfg *DbCfg) error {
+	// Check Driver
+	switch cfg.Driver {
+	case "postgres":
+		// Valid Driver
+	default:
+		return fmt.Errorf("invalid Driver: %s", cfg.Driver)
+	}
+
+	// Ensure that Username, Password, Host, and Name are not empty.
+	for key, val := range []string{cfg.Username, cfg.Password, cfg.Host, cfg.Name} {
+		if val == "" {
+			return fmt.Errorf("%v is empty", key)
+		}
+	}
+
+	// Check Port range
+	if !(1 <= cfg.Port && cfg.Port <= 65535) {
+		return fmt.Errorf("invalid port: %d", cfg.Port)
+	}
+
+	// Validate Params
+	var invalidParams []string
+	for k := range cfg.Params {
+		if !isValidDbCfgParam(string(k)) {
+			invalidParams = append(invalidParams, string(k))
+		}
+	}
+	if len(invalidParams) > 0 {
+		return fmt.Errorf("invalid DbCfg params: %v", invalidParams)
+	}
+
+	return nil
+}
+
+// isValidDbCfgParam checks if the DbCfgParam is valid.
+func isValidDbCfgParam(param string) bool {
+	switch DbCfgParam(param) {
+	case "SslMode":
+	case "SslCert":
+	case "SslKey":
+	case "SslRootCert":
+	case "SslCrl":
+	case "AppName":
+	case "FallbackAppName":
+	case "ConnectTimeout":
+	case "Keepalives":
+	case "KeepalivesIdle":
+	case "KeepalivesInterval":
+	case "KeepalivesCount":
+		return true
+	default:
+		return false
+	}
+	return false
+}
+
 // BuildDSN builds the Data Source Name (DSN) connection url from the DbCfg struct.
 func BuildDSN(cfg *DbCfg) string {
 	var dsn string

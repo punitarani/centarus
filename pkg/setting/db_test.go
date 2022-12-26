@@ -3,8 +3,103 @@ package setting
 import (
 	"fmt"
 	"reflect"
+	"strconv"
 	"testing"
 )
+
+func TestValidateDbCfg(t *testing.T) {
+	// Test cases
+	tests := []struct {
+		name string
+		key  string
+		val  string
+	}{
+		{
+			name: "Test empty Driver",
+			key:  "Driver",
+			val:  "",
+		},
+		{
+			name: "Test mysql Driver",
+			key:  "Driver",
+			val:  "mysql",
+		},
+		{
+			name: "Test empty Username",
+			key:  "Username",
+			val:  "",
+		},
+		{
+			name: "Test empty Password",
+			key:  "Password",
+			val:  "",
+		},
+		{
+			name: "Test empty Host",
+			key:  "Host",
+			val:  "",
+		},
+		{
+			name: "Test 0 Port",
+			key:  "Port",
+			val:  "0",
+		},
+		{
+			name: "Test 65536 Port",
+			key:  "Port",
+			val:  "65536",
+		},
+		{
+			name: "Test empty Name",
+			key:  "Name",
+			val:  "",
+		},
+	}
+
+	// Valid DB config
+	validCfg := DbCfg{
+		Driver:   "postgres",
+		Username: "user",
+		Password: "pass",
+		Host:     "localhost",
+		Port:     5432,
+		Name:     "test",
+	}
+	validCfgVal := reflect.ValueOf(validCfg)
+
+	// Check that the valid config is valid
+	if err := ValidateDbCfg(&validCfg); err != nil {
+		t.Errorf("ValidateDbCfg() = %v, want %v", err, nil)
+	}
+
+	// Test valid DB config
+	for _, test := range tests {
+		// Copy validCfg to cfg
+		cfg := DbCfg{}
+		cfgVal := reflect.ValueOf(&cfg).Elem()
+		for i := 0; i < cfgVal.NumField(); i++ {
+			cfgVal.Field(i).Set(validCfgVal.Field(i))
+		}
+
+		// Set invalid value
+		// Convert to int if necessary
+		if cfgVal.FieldByName(test.key).Kind() == reflect.Int {
+			val, err := strconv.ParseInt(test.val, 10, 64)
+			if err != nil {
+				t.Errorf("strconv.Atoi() on %v returned error %v", test.val, err)
+			}
+			cfgVal.FieldByName(test.key).SetInt(val)
+		} else {
+			cfgVal.FieldByName(test.key).SetString(test.val)
+		}
+
+		// Validate DB config
+		err := ValidateDbCfg(&cfg)
+		if err == nil {
+			t.Errorf("ValidateDbCfg() = nil, want error for %v=%v", test.key, test.val)
+		}
+	}
+}
 
 func TestBuildDSN(t *testing.T) {
 	tests := []struct {
