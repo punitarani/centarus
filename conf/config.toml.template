@@ -1,7 +1,10 @@
 # config.toml Template
 
+#######################################################################################################################
+# This section is used to include the database configuration details
 [Db]
 
+# This sub-section is includes the Postgres database configuration details. These details are required.
 [Db.Postgres]
 Driver   = """Postgres_Driver"""
 Username = """Postgres_Username"""
@@ -10,6 +13,8 @@ Host     = """Postgres_Host"""
 Port     = 1234
 Name     = """Postgres_Name"""
 DSN      = """Postgres_DSN"""
+
+# This sub-section includes the parameters for the Postgres database. These parameters are optional.
 [Db.Postgres.Params]
 SslMode            = "Value_SslMode"
 SslCert            = "Value_SslCert"
@@ -24,6 +29,8 @@ KeepalivesIdle     = "-1"
 KeepalivesInterval = "-1"
 KeepalivesCount    = "-1"
 
+
+# This sub-section is includes the Redis database configuration details
 [Db.Redis]
 Driver   = "Redis_Driver"
 Username = "Redis_Username"
@@ -32,3 +39,7 @@ Host     = "Redis_Host"
 Port     = 1234
 Name     = "Redis_Name"
 DSN      = "Redis_DSN"
+
+# There can be be multiple [Db.<db>] sections. Each section is used to configure a database.
+
+########################################################################################################################
