@@ -8,7 +8,8 @@ import (
 )
 
 func TestValidateDbCfg(t *testing.T) {
-	// Test cases
+	t.Parallel()
+
 	tests := []struct {
 		name string
 		key  string
