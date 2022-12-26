@@ -43,7 +43,7 @@ type DbCfgParam string
 func ValidateDbCfg(cfg *DbCfg) error {
 	// Check Driver
 	switch cfg.Driver {
-	case "postgres":
+	case "postgresql":
 		// Valid Driver
 	default:
 		return fmt.Errorf("invalid Driver: %s", cfg.Driver)

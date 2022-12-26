@@ -59,7 +59,7 @@ func TestValidateDbCfg(t *testing.T) {
 
 	// Valid DB config
 	validCfg := DbCfg{
-		Driver:   "postgres",
+		Driver:   "postgresql",
 		Username: "user",
 		Password: "pass",
 		Host:     "localhost",
