@@ -78,23 +78,23 @@ func ValidateDbCfg(cfg *DbCfg) error {
 // isValidDbCfgParam checks if the DbCfgParam is valid.
 func isValidDbCfgParam(param string) bool {
 	switch DbCfgParam(param) {
-	case "SslMode":
-	case "SslCert":
-	case "SslKey":
-	case "SslRootCert":
-	case "SslCrl":
-	case "AppName":
-	case "FallbackAppName":
-	case "ConnectTimeout":
-	case "Keepalives":
-	case "KeepalivesIdle":
-	case "KeepalivesInterval":
-	case "KeepalivesCount":
+	case
+		"SslMode",
+		"SslCert",
+		"SslKey",
+		"SslRootCert",
+		"SslCrl",
+		"AppName",
+		"FallbackAppName",
+		"ConnectTimeout",
+		"Keepalives",
+		"KeepalivesIdle",
+		"KeepalivesInterval",
+		"KeepalivesCount":
 		return true
 	default:
 		return false
 	}
-	return false
 }
 
 // BuildDSN builds the Data Source Name (DSN) connection url from the DbCfg struct.
