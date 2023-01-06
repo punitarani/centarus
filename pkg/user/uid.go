@@ -4,8 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/punitarani/centarus/pkg/db"
-
-	"github.com/punitarani/centarus/pkg/random"
+	"github.com/punitarani/centarus/pkg/utils/random"
 )
 
 const UIDLength = 30

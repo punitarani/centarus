@@ -1,7 +1,7 @@
 package dotenv
 
 import (
-	"github.com/punitarani/centarus/pkg/random"
+	"github.com/punitarani/centarus/pkg/utils/random"
 	"os"
 	"testing"
 )
