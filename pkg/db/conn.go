@@ -3,11 +3,11 @@ package db
 import (
 	"context"
 	"errors"
+	"github.com/punitarani/centarus/pkg/utils/dotenv"
 	"os"
 	"os/exec"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/punitarani/centarus/pkg/dotenv"
 )
 
 // dbEnvNames is a map of database names to environment variable names.
