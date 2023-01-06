@@ -1,9 +1,10 @@
 package main
 
-import (
-	"os"
-)
+import "github.com/punitarani/centarus/cmd/centarus"
 
 func main() {
-	os.Exit(-1)
+	err := centarus.Run()
+	if err != nil {
+		panic(err)
+	}
 }
