@@ -6,6 +6,7 @@ import (
 
 func CreateServer() *http.ServeMux {
 	mux := http.NewServeMux()
+	mux.HandleFunc("/", GetRoot)
 
 	return mux
 }
