@@ -1,7 +1,12 @@
 package centarus
 
-import "errors"
+import (
+	"github.com/punitarani/centarus/internal/server"
+)
 
 func Run() error {
-	return errors.New("not implemented")
+	mux := server.CreateServer()
+	server.RunServer(mux)
+
+	return nil
 }
