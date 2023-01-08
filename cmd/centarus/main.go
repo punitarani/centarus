@@ -5,7 +5,7 @@ import (
 )
 
 func Run() error {
-	mux := server.CreateServer()
+	mux := server.GetMux()
 	server.RunServer(mux)
 
 	return nil

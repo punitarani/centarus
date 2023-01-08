@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func CreateServer() *http.ServeMux {
+func GetMux() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", GetRoot)
 
