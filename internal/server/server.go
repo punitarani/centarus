@@ -10,10 +10,3 @@ func GetMux() *http.ServeMux {
 
 	return mux
 }
-
-func RunServer(mux *http.ServeMux) {
-	err := http.ListenAndServe(":8080", mux)
-	if err != nil {
-		panic(err)
-	}
-}
