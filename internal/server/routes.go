@@ -3,6 +3,8 @@ package server
 import "net/http"
 
 func GetRoot(w http.ResponseWriter, r *http.Request) {
+	LogRequest(r)
+
 	// Only handle GET requests
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
